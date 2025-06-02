@@ -18,14 +18,14 @@ public class TestActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    @Override
-    protected int getFragmentContainerId() {
-        return R.id.fragment_container;
-    }
+//    @Override
+//    protected int getFragmentContainerId() {
+//        return R.id.fragment_container;
+//    }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected <T extends BaseFragment> T buildCurrentFragment() {
-        return (T) TestRecyclerViewFragment.newInstance();
-    }
+//    @SuppressWarnings("unchecked")
+//    @Override
+//    protected <T extends BaseFragment> T buildCurrentFragment() {
+//        return (T) TestRecyclerViewFragment.newInstance();
+//    }
 }

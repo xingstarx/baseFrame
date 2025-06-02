@@ -7,6 +7,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.jade.baseframe.activity.listener.BackPressable;
@@ -26,8 +27,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         onPrepare();
-        replaceFragment(getFragmentContainerId(), buildCurrentFragment());
-        addBackPressable(mCurrentFragment);
+        // replaceFragment(getFragmentContainerId(), buildCurrentFragment());
+        // addBackPressable(mCurrentFragment);
     }
 
     /**
@@ -44,6 +45,34 @@ public abstract class BaseActivity extends AppCompatActivity {
         removeBackPressable(mCurrentFragment);
         addBackPressable(fragment);
         mCurrentFragment = fragment;
+    }
+
+    // 新增：添加Fragment的方法
+    protected final void addFragment(@IdRes int containerViewId, Fragment fragment, String tag) {
+        getSupportFragmentManager().beginTransaction()
+                .add(containerViewId, fragment, tag)
+                .commitAllowingStateLoss();
+    }
+
+    // 新增：移除Fragment的方法
+    protected final void removeFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .remove(fragment)
+                .commitAllowingStateLoss();
+    }
+
+    // 新增：显示Fragment的方法
+    protected final void showFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .show(fragment)
+                .commitAllowingStateLoss();
+    }
+
+    // 新增：隐藏Fragment的方法
+    protected final void hideFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragment)
+                .commitAllowingStateLoss();
     }
 
     public final void addOnActivityResultListener(OnActivityResultListener listener) {
@@ -81,9 +110,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected abstract int getLayoutId();
 
-    @IdRes
-    protected abstract int getFragmentContainerId();
+    // @IdRes
+    // protected abstract int getFragmentContainerId();
 
-    protected abstract <T extends BaseFragment> T buildCurrentFragment();
+    // protected abstract <T extends BaseFragment> T buildCurrentFragment();
 
 }
